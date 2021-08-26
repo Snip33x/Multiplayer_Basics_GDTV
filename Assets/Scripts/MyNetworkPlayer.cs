@@ -17,7 +17,8 @@ public class MyNetworkPlayer : NetworkBehaviour
     [SyncVar(hook = nameof(HandleDisplayColorUpdated))]
     [SerializeField]
     private Color displayColor = Color.white;
-    
+
+    #region Server
 
     [Server] //server attribute is used here for protection 
     public void SetDisplayName(string newDisplayName)
@@ -31,6 +32,19 @@ public class MyNetworkPlayer : NetworkBehaviour
         displayColor = newDisplayColor;
     }
 
+    [Command]
+    private void CmdDisplayName(string newDisplayName)
+    {
+        RpcLogNewName(newDisplayName);
+
+        SetDisplayName(newDisplayName);
+    }
+
+
+    #endregion
+
+    #region Client
+
     private void HandleDisplayColorUpdated(Color oldColor, Color newColor) //mirror requires 2 arguments even if we are not using old color/argument
     {
         displayColorRenderer.material.SetColor("_BaseColor", newColor);
@@ -40,4 +54,18 @@ public class MyNetworkPlayer : NetworkBehaviour
     {
         displayNameText.text = newName;
     }
+
+    [ContextMenu("Set My Name")] //prawy przycisk myszy na skrypcie
+    private void SetMyName()
+    {
+        CmdDisplayName("My New Name");
+    }
+
+    [ClientRpc]
+    private void RpcLogNewName(string newDisplayName)
+    {
+        Debug.Log(newDisplayName);
+    }
+
+    #endregion
 }
