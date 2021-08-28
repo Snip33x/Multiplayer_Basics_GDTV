@@ -13,7 +13,7 @@ public class MyNetworkManager : NetworkManager
 
         player.SetDisplayName($"Player {numPlayers}");
 
-        //player.SetDisplayColor(Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))); //moje dzia³a³o, poni¿ej to samo tylko ³adniej
+        //player.SetDisplayColor(Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))); //moje dziaÂ³aÂ³o, poniÂ¿ej to samo tylko ladniej
 
         Color displayColor = new Color(
             Random.Range(0f, 1f),
