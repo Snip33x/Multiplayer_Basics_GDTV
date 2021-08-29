@@ -35,9 +35,22 @@ public class MyNetworkPlayer : NetworkBehaviour
     [Command]
     private void CmdDisplayName(string newDisplayName)
     {
-        RpcLogNewName(newDisplayName);
+        if (newDisplayName.Length > 20)
+        {
+            Debug.Log("Name is too long");
+            return;
+        }
+        else if (newDisplayName.Length < 5)
+        {
+            Debug.Log("Name is too short");
+            return;
+        }
+        else
+        {
+            RpcLogNewName(newDisplayName);
 
-        SetDisplayName(newDisplayName);
+            SetDisplayName(newDisplayName);
+        }
     }
 
 
@@ -58,7 +71,7 @@ public class MyNetworkPlayer : NetworkBehaviour
     [ContextMenu("Set My Name")] //prawy przycisk myszy na skrypcie
     private void SetMyName()
     {
-        CmdDisplayName("My New Name");
+        CmdDisplayName("My New Name asdlkfjasldkfjalsdkjf");
     }
 
     [ClientRpc]
